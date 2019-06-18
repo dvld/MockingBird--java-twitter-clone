@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/head :: head">
+<title>Mocking Feed</title>
+</head>
+<body>
+	<nav th:replace="fragments/navbar :: navbar"></nav>
+	<div class="container">
+		<h2>Mocks</h2>
+		<div th:each="mock:${mockList}">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 style="margin:0;">
+						@<span th:text="${mock.user.username}"></span>
+					</h4>
+					<h6 class="panel-title"
+						th:text="${#dates.format(mock.createdAt, 'M/d/yy')}"></h6>
+				</div>
+				<div class="panel-body" th:utext="${mock.message}"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

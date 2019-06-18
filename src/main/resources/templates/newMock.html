@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+	<title>Mocking Bird</title>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron col-md-8 col-md-offset-2">
+			<h2>New Mock</h2><br>
+			<form th:action="@{/mocks}" th:object="${mock}" method="post" autocomplete="off">
+				<div class="form-group">
+					<textarea rows="5" th:field="*{message}" placeholder="What's happeing?" class="form-control"></textarea>
+					<label th:if="${#fields.hasErrors('message')}" th:errors="*{message}" class="validation-message"></label>
+				</div>
+				<div class="form_group">
+					<button class="btn btn-md btn-success btn-block" name="Submit" value="Submit" type="submit">Mock it!</button>
+				</div>
+			</form>
+		</div>
+		<div th:if="${successMessage}">
+			<h3><span class="text-success" th:utext="${successMessage}"></span></h3>
+		</div>
+	</div>
+</body>
+
+</html>
