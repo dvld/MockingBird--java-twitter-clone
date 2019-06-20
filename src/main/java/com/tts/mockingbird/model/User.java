@@ -1,5 +1,7 @@
 package com.tts.mockingbird.model;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -59,7 +61,7 @@ public class User {
 	private int active;
 	
 	@CreationTimestamp
-	private Date createdAt;
+	private Timestamp createdAt;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
@@ -123,11 +125,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public Date getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
@@ -145,7 +147,23 @@ public class User {
 
 	public void setActive(int active) {
 		this.active = active;
-	}
+  }
+  
+  public List<User> getFollowers() {
+    return followers;
+  }
+
+  public void setFollowers(List<User> followers) {
+    this.followers = followers;
+  }
+
+  public List<User> getFollowing() {
+    return following;
+  }
+
+  public void setFollowing(List<User> following) {
+    this.following = following;
+  }
 
 	@Override
 	public String toString() {

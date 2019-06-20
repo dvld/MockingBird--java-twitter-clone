@@ -1,25 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head th:replace="fragments/head :: head">
-<title>Mocking Feed</title>
+  <title>Mocking Feed</title>
 </head>
+
 <body>
-	<nav th:replace="fragments/navbar :: navbar"></nav>
-	<div class="container">
-		<h2>Mocks</h2>
-		<div th:each="mock:${mockList}">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 style="margin:0;">
-						@<span th:text="${mock.user.username}"></span>
-					</h4>
-					<h6 class="panel-title"
-						th:text="${#dates.format(mock.createdAt, 'M/d/yy')}"></h6>
-				</div>
-				<div class="panel-body" th:utext="${mock.message}"></div>
-			</div>
-		</div>
-	</div>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+
+  <!-- part 3 slide 39 -->
+  <ul class="nav nav-tabs">
+    <li role="presentation" th:classappend="${filter == 'all' ? 'active' : '' }">
+      <a href="/feed">All</a>
+    </li>
+    <li role="presentation" th:classappend="${filter == 'following' ? 'active' : '' }">
+      <a href="/feed?filter=following">Following</a>
+    </li>
+  </ul>
+  <br>
+
+  <div class="container">
+    <h2>Mocks</h2>
+    <div th:each="mock:${mockList}">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 style="margin:0;">
+            @<span th:text="${mock.user.username}"></span>
+          </h4>
+          <!-- part 3 slide 31 // changed '${#dates.format(mock.createdAt, 'M/d/yy')}' to '${mock.date}' -->
+          <h6 class="panel-title" th:text="${mock.date}"></h6>
+        </div>
+        <div class="panel-body" th:utext="${mock.message}"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- part 3 slide 40 -->
+  <div th:if="${#lists.isEmpty(mockList) and filter == 'all'}">
+    <h3>No mocks have been created yet</h3>
+  </div>
+  <div th:if="${#lists.isEmpty(mockList) and filter == 'following'}">
+    <h3>No mocks have been created by your followers</h3>
+  </div>
 </body>
+
 </html>

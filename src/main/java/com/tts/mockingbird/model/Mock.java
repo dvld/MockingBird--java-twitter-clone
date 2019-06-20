@@ -1,7 +1,9 @@
 package com.tts.mockingbird.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
@@ -42,7 +46,13 @@ public class Mock {
 	
 	@NotEmpty(message = "Mock cannot be empty")
 	@Length(max = 280, message = "Mock cannot have more than 280 characters")
-	private String message;
+  private String message;
+  
+  // part 2 slide 49 // establishes relationship between mocks(tweets) and hashtags //
+  @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+  @JoinTable(name = "mock_hashtag", joinColumns = @JoinColumn(name = "mock_id"),
+  inverseJoinColumns = @JoinColumn(name = "hashtag_id"))
+  private List<HashTag> hashtags;
 	
 	@CreationTimestamp
 	private Date createdAt;
@@ -78,7 +88,15 @@ public class Mock {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
-	}
+  }
+  
+  public List<HashTag> getHashTags() {
+    return hashtags;
+  }
+
+  public void setHashTags(List<HashTag> hashtags) {
+    this.hashtags = hashtags;
+  }
 
 	@Override
 	public String toString() {

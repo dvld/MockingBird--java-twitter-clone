@@ -24,7 +24,7 @@
 					</li>
 					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-					<li><a th:href="@{/signup}">Register</a></li>
+					<li sec:authorize="!isAuthenticated()"><a th:href="@{/signup}">Register</a></li>
 					<li class="dropdown">
 						<ul class="dropdown-menu">
 							<li><a href="#">Home</a></li>

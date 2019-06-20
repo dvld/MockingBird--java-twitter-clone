@@ -13,5 +13,7 @@ public interface MockRepository extends CrudRepository<Mock, Long> {
 
 	List<Mock> findAllByOrderByCreatedAtDesc();
 	List<Mock> findAllByUserOrderByCreatedAtDesc(User user);
-	List<Mock> findAllByUserInOrderByCreatedAtDesc(List<User> users);
+  List<Mock> findAllByUserInOrderByCreatedAtDesc(List<User> users);
+  // part 2 slide 61 //
+  List<Mock> findByhashtagsPhraseOrderByCreatedAtDesc(String phrase);
 }
